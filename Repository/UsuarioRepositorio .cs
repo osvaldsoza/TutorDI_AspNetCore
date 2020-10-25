@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -16,13 +17,13 @@ namespace TutorDI.Repository
             _usuarioContext = usuarioContext;
         }
 
-        public async Task<Usuario[]> GetTodosUsuariosAsync()
+        public async Task<List<Usuario>> GetTodosUsuariosAsync()
         {
             IQueryable<Usuario> query = _usuarioContext.Usuarios;
 
             query = query.OrderBy(u => u.Nome);
 
-            return await query.ToArrayAsync();
+            return await query.ToListAsync();
         }
 
         public async Task<Usuario> GetUsuarioByIdAsync(int id){
