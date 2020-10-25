@@ -8,5 +8,13 @@ namespace TutorDI.Repository
     {
          Task <Usuario[]> GetTodosUsuariosAsync();
          Task <Usuario> GetUsuarioByIdAsync(int id);
+
+         Task<bool> SaveChangesAsync();
+
+         void Add<T>(T entity) where T : class;
+
+         void Update<T>(T entity) where T : class;
+
+         void Delete<T>(T entity) where T : class;
     }
 }

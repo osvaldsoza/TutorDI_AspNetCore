@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TutorDI.Model;
 using TutorDI.Repository;
 
 namespace TutorDI.Controllers
