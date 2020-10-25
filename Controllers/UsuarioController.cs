@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using TutorDI.Model;
+using TutorDI.Repository;
 
 namespace TutorDI.Controllers
 {
@@ -20,9 +18,37 @@ namespace TutorDI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_usuarioRepository.GetListaTodosUsuarios());
+            try
+            {
+                var usuarios = await _usuarioRepository.GetTodosUsuariosAsync();
+                return Ok(usuarios);
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no banco de dados");
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                var usuario = await _usuarioRepository.GetUsuarioByIdAsync(id);
+
+                if (usuario == null)
+                {
+                    return this.StatusCode(StatusCodes.Status404NotFound, "usuário não encontrado");
+                }
+                return Ok(usuario);
+
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no banco de dados");
+            }
         }
     }
 }
