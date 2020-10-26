@@ -15,6 +15,7 @@ namespace TutorDI.Repository
         public UsuarioRepositorio (UsuarioContext usuarioContext)
         {
             _usuarioContext = usuarioContext;
+            _usuarioContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public async Task<List<Usuario>> GetTodosUsuariosAsync()

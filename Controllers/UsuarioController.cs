@@ -71,7 +71,7 @@ namespace TutorDI.Controllers
             return this.StatusCode(StatusCodes.Status400BadRequest, "Parâmetros inválidos");
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{usuarioId}")]
         public async Task<IActionResult> Put(int usuarioId, Usuario usuario)
         {
             try
@@ -97,7 +97,7 @@ namespace TutorDI.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{usuarioId}")]
         public async Task<IActionResult> Delete(int usuarioId)
         {
             try
@@ -121,7 +121,7 @@ namespace TutorDI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no banco de dados");
             }
 
-            return this.StatusCode(StatusCodes.Status400BadRequest, "Parâmetros inválidos");
+            return this.StatusCode(StatusCodes.Status400BadRequest, "Parâmetro inválido");
         }
     }
 }

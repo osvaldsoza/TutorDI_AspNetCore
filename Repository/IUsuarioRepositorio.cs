@@ -7,7 +7,7 @@ namespace TutorDI.Repository
     public interface IUsuarioRepositorio
     {
          Task <List<Usuario>> GetTodosUsuariosAsync();
-         Task <Usuario> GetUsuarioByIdAsync(int id);
+         Task <Usuario> GetUsuarioByIdAsync(int usuarioId);
 
          Task<bool> SaveChangesAsync();
 
