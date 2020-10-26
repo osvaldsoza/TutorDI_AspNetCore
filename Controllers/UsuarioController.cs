@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TutorDI.Dtos;
 using TutorDI.Model;
 using TutorDI.Repository;
 
@@ -12,9 +15,12 @@ namespace TutorDI.Controllers
     {
         private readonly IUsuarioRepositorio _usuarioRepository;
 
-        public UsuarioController(IUsuarioRepositorio usuarioRepositorio)
+        private readonly IMapper _mapper;
+
+        public UsuarioController(IUsuarioRepositorio usuarioRepositorio, IMapper mapper)
         {
             _usuarioRepository = usuarioRepositorio;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -23,7 +29,10 @@ namespace TutorDI.Controllers
             try
             {
                 var usuarios = await _usuarioRepository.GetTodosUsuariosAsync();
-                return Ok(usuarios);
+
+                var results = _mapper.Map<IEnumerable<UsuarioDTO>>(usuarios);
+
+                return Ok(results);
             }
             catch (System.Exception)
             {
@@ -42,8 +51,9 @@ namespace TutorDI.Controllers
                 {
                     return this.StatusCode(StatusCodes.Status404NotFound, "Usuário não encontrado");
                 }
-                return Ok(usuario);
+                var result = _mapper.Map<UsuarioDTO>(usuario);
 
+                return Ok(result);
             }
             catch (System.Exception)
             {
