@@ -6,10 +6,8 @@ using TutorDI.Model;
 
 namespace TutorDI.Repository
 {
-   
     public class UsuarioRepositorio : IUsuarioRepositorio
     {
-
         private readonly UsuarioContext _usuarioContext;
 
         public UsuarioRepositorio (UsuarioContext usuarioContext)
